@@ -25,6 +25,11 @@ public class FilmeService {
         return filmeRepository.findAll();
     }
 
+    //Salva o filme no banco de dados
+    public Filme salvarFilme(Filme filme) {
+        return filmeRepository.save(filme);
+    }
+
     //Busca um filme pelo id e lança uma exceção caso ele não exista
     public Filme listarFilme(Integer id) {
         return filmeRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Filme não encontrado"));

@@ -20,6 +20,14 @@ public class UsuarioService {
         this.usuarioRepository = usuarioRepository;
     }
 
+    //Salva o usuário no banco apenas se o e-mail já não existir
+    public Usuario salvarUsuario(Usuario usuario) {
+        if (usuarioRepository.existsByEmail(usuario.getEmail())) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "E-mail já cadastrado");
+        }
+        return usuarioRepository.save(usuario);
+    }
+
     //Lista todos os usuários cadastrados através do método findall da JPA
     public List<Usuario> listarUsuarios() {
         return usuarioRepository.findAll();
