@@ -21,7 +21,7 @@ public class Usuario {
     private String email;
 
     //Configuração exata do atributo criado no banco de dados (DDL)
-    @Column(length = 255, nullable = false)
+    @Column(name = "senha_hash", length = 255, nullable = false)
     private String senhaHash;
 
     //Obs.: Na annotation @Column não há nomes da coluna especificado, pois o mesmo é igual ao criado no DDL, caso contrário, seria necessário especificar também

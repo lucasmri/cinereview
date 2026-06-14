@@ -1,5 +1,6 @@
 package com.messias.cinereview.service;
 
+import com.messias.cinereview.dto.UsuarioCadastroDTO;
 import com.messias.cinereview.model.Usuario;
 import com.messias.cinereview.repository.UsuarioRepository;
 import org.springframework.http.HttpStatus;
@@ -20,11 +21,23 @@ public class UsuarioService {
         this.usuarioRepository = usuarioRepository;
     }
 
-    //Salva o usuário no banco apenas se o e-mail já não existir
-    public Usuario salvarUsuario(Usuario usuario) {
-        if (usuarioRepository.existsByEmail(usuario.getEmail())) {
+    //Cadastra um novo usuário no sistema
+    public Usuario cadastrarUsuario(UsuarioCadastroDTO dto) {
+
+        //Verifica se já existe um usuário cadastrado com o e-mail informado
+        if (usuarioRepository.existsByEmail(dto.getEmail())) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "E-mail já cadastrado");
         }
+
+        //Cria uma nova instância de usuário
+        Usuario usuario = new Usuario();
+
+        //Define os dados recebidos pelo DTO no objeto usuário
+        usuario.setNome(dto.getNome());
+        usuario.setEmail(dto.getEmail());
+        usuario.setSenhaHash(dto.getSenha());
+
+        //Salva o usuário no banco de dados
         return usuarioRepository.save(usuario);
     }
 

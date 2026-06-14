@@ -56,7 +56,9 @@ public class ResenhaService {
     //Deleta uma resenha do banco de dados
     public void deletarResenha(Integer id) {
 
-        //Remove a resenha através do id informado
-        resenhaRepository.deleteById(id);
+        Resenha resenha = listarResenha(id);
+
+        //Remove o objeto do banco de dados
+        resenhaRepository.delete(resenha);
     }
 }

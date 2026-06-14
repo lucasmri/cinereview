@@ -19,21 +19,21 @@ public class Resenha {
     private Double nota;
 
     //Configuração exata do atributo criado no banco de dados (DDL)
-    @Column(length = 255, nullable = false)
+    @Column(columnDefinition = "TEXT", nullable = false)
     private String comentario;
 
     //Configuração exata do atributo criado no banco de dados (DDL)
-    @Column(updatable = false, insertable = false)
+    @Column(name = "data_publicacao", updatable = false, insertable = false)
     private LocalDateTime dataPublicacao;
 
     //Define um relacionamento muitos para um entre resenhas e usuários e define a chave estrangeira que referencia a tabela de usuários
     @ManyToOne(optional = false)
-    @JoinColumn(name = "usuarioId", nullable = false)
+    @JoinColumn(name = "usuario_id", nullable = false)
     private Usuario usuario;
 
     //Define um relacionamento muitos para um entre resenhas e filmes e define a chave estrangeira que referencia a tabela de filmes
     @ManyToOne(optional = false)
-    @JoinColumn(name = "filmeId", nullable = false)
+    @JoinColumn(name = "filme_id", nullable = false)
     private Filme filme;
 
     //Obs.: Na annotation @Column não há nomes da coluna especificado, pois o mesmo é igual ao criado no DDL, caso contrário, seria necessário especificar também
