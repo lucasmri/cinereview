@@ -1,7 +1,6 @@
 package com.messias.cinereview.controller;
 
 import com.messias.cinereview.dto.UsuarioCadastroDTO;
-import com.messias.cinereview.model.Filme;
 import com.messias.cinereview.model.Usuario;
 import com.messias.cinereview.service.UsuarioService;
 import org.springframework.http.HttpStatus;
@@ -11,7 +10,6 @@ import java.util.List;
 
 //Indica que essa classe é uma controller REST responsável por receber requisições HTTP
 @RestController
-
 //Define a URL base para os endpoints desta controller
 @RequestMapping("/usuarios")
 public class UsuarioController {
