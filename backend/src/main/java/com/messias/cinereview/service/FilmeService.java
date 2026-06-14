@@ -1,5 +1,6 @@
 package com.messias.cinereview.service;
 
+import com.messias.cinereview.dto.FilmeDTO;
 import com.messias.cinereview.model.Filme;
 import com.messias.cinereview.repository.FilmeRepository;
 import org.springframework.http.HttpStatus;
@@ -26,7 +27,15 @@ public class FilmeService {
     }
 
     //Salva o filme no banco de dados
-    public Filme salvarFilme(Filme filme) {
+    public Filme salvarFilme(FilmeDTO dto) {
+
+        Filme filme = new Filme();
+
+        filme.setNome(dto.getNome());
+        filme.setGenero(dto.getGenero());
+        filme.setAno(dto.getAno());
+        filme.setDirecao(dto.getDirecao());
+
         return filmeRepository.save(filme);
     }
 
@@ -35,19 +44,21 @@ public class FilmeService {
         return filmeRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Filme não encontrado"));
     }
 
-    //Atualiza os dados de um filme existente
-    public Filme atualizarFilme(Integer id, Filme filmeAtualizado) {
+    //Busca filmes pelo gênero
+    public List<Filme> listarPorGenero(String genero) {
+        return filmeRepository.findByGeneroIgnoreCase(genero);
+    }
 
-        //Busca o filme que será atualizado
+    //Atualiza os dados de um filme existente
+    public Filme atualizarFilme(Integer id, FilmeDTO dto) {
+
         Filme filme = listarFilme(id);
 
-        //Atualiza os dados através dos getters and setters
-        filme.setNome(filmeAtualizado.getNome());
-        filme.setGenero(filmeAtualizado.getGenero());
-        filme.setAno(filmeAtualizado.getAno());
-        filme.setDirecao(filmeAtualizado.getDirecao());
+        filme.setNome(dto.getNome());
+        filme.setGenero(dto.getGenero());
+        filme.setAno(dto.getAno());
+        filme.setDirecao(dto.getDirecao());
 
-        //Salva no banco o objeto atualizado
         return filmeRepository.save(filme);
     }
 

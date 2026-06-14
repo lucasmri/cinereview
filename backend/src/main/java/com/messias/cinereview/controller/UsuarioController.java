@@ -1,6 +1,7 @@
 package com.messias.cinereview.controller;
 
 import com.messias.cinereview.dto.UsuarioCadastroDTO;
+import com.messias.cinereview.model.Filme;
 import com.messias.cinereview.model.Usuario;
 import com.messias.cinereview.service.UsuarioService;
 import org.springframework.http.HttpStatus;
@@ -43,6 +44,13 @@ public class UsuarioController {
     public Usuario listarUsuario(@PathVariable Integer id) {
 
         return usuarioService.listarUsuario(id);
+    }
+
+    //Mapeia requisições PUT para atualizar um usuário pelo id
+    @PutMapping("/{id}")
+    public Usuario atualizarUsuario(@PathVariable Integer id, @RequestBody Usuario usuario) {
+
+        return usuarioService.atualizarUsuario(id, usuario);
     }
 
     //Mapeia requisições DELETE para remover um usuário pelo id
